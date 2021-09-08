@@ -1,7 +1,7 @@
 {
-  "name": "weather-journal-app",
+  "name": "travel_app",
   "version": "1.0.0",
-  "description": "## Overview This project requires you to create an asynchronous web app that uses Web API and user data to dynamically update the UI.",
+  "description": "## Overview This project is a final capstone of Udacity's [Front End Web Developer](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd0011) nanodegree course. Travel app helps you to raise your motivation for trip planing with Travel app helps you to plan your trip with weather forcast and the image of the location where you want to go.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,17 +9,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TANADADaisuke/weather-journal-app.git"
+    "url": "git+https://github.com/TANADADaisuke/travel_app.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/TANADADaisuke/weather-journal-app/issues"
+    "url": "https://github.com/TANADADaisuke/travel_app/issues"
   },
-  "homepage": "https://github.com/TANADADaisuke/weather-journal-app#readme",
+  "homepage": "https://github.com/TANADADaisuke/travel_app#readme",
   "dependencies": {
-    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1"
   }

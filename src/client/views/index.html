@@ -3,34 +3,36 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Weather Journal</title>
-        <meta description="Udacity Frontend Nanodegree course Third Project: Weather Journal">
-        <link href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
+        <title>Travel App</title>
+        <meta description="Udacity Frontend Nanodegree course Capstone Project: Travel App">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Lora&family=Roboto&display=swap" rel="stylesheet">        <link href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap" rel="stylesheet">
     </head>
     <body>
-        <div id = "app">
-            <div class ="holder headline">
-                Weather Journal App
-            </div>
-            <div class ="holder zip">
-                <label for="zip">Enter Zipcode here</label>
-                <input type="text" id="zip" placeholder="enter zip code here">
-            </div>
-            <div class ="holder feel">
-                <label for="feelings">How are you feeling today?</label>
-                <textarea class= "myInput" id="feelings" placeholder="Enter your feelings here" rows="9" cols="50"></textarea>
-                <button id="generate" type = "submit"> Generate </button>
-            </div>
-            <div class ="holder entry">
-                <div class = "title">Most Recent Entry</div>
-                <div id = "entryHolder">
-                    <div id = "date"></div> 
-                    <div id = "temp"></div>
-                    <div id = "content"></div>
-                </div>
-            </div>
-        </div>
-        <script src="app.js" type="text/javascript"></script>
+        <header class="page-header">
+            <h1>Travel Planner</h1>
+        </header>
+        <main class="content">
+            <section class="photo-section"></section>
+            <section class="content-section">
+                <section class="description">
+                    <div class="trip">My Travel to Paris, France</div>
+                    <div class="departing">Departing: 02/12/2020</div>
+                </section>
+                <section class="button-area">
+                    <button class="save">save trip</button>
+                    <button class="remove">remove trip</button>
+                </section>
+                <section class="response-area">
+                    <div class="forward">Paris, France is <span id="forward">220</span> days away</div>
+                    <div class="weather">Typical weather for them is:</div>
+                    <div id="temperature"><span>High - 46, Low - 35</span></div>
+                    <div id="weather"><span>Moisty cloudy throughout the day</span></div>
+                </section>
+            </section>
+        </main>
+        <footer class="page-footer">
+            <p>Supported by <a href="https://www.udacity.com" target="_blank" rel="noopener">Udacity</a> :)</p>
+        </footer>
     </body>
 </html>

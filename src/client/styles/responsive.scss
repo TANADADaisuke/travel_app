@@ -1,0 +1,64 @@
+/* page container with grid system */
+.content {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto;
+    grid-template-areas: "photo" "content";
+}
+
+
+.photo-section {
+    grid-area: "photo";
+}
+
+.content-section {
+    grid-area: "content";
+}
+
+/* middle screen */
+@media (min-width: 640px) and (max-width: 900px) {
+    .page-header {
+        border-bottom: 2px solid #000;
+    }
+
+    .page-header h1 {
+        text-align: left;
+        padding-left: 25px;
+    }
+
+
+    .page-footer {
+        border-top: 2px solid #000;
+    }
+
+
+    .content {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "photo content";
+    }
+}
+
+
+/* large screen */
+@media (min-width: 901px) {
+    .page-header {
+        border-bottom: 2px solid #000;
+    }
+
+    .page-header h1 {
+        text-align: left;
+        padding: 0 calc((100% - 900px) / 2 + 25px);
+    }
+
+
+    .page-footer {
+        border-top: 2px solid #000;
+    }
+
+
+    .content {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "photo content";
+        padding: 40px calc((100% - 900px) / 2);
+    }
+}

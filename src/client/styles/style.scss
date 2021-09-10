@@ -1,89 +1,121 @@
-body{
-    background: #fffff8;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+/* set font and font size on body */
+body {
+    width: 100%;
+    font-size: 16px;
+    font-family: 'Lora', serif;
 }
 
-#app{
-    display: grid;
-    grid-auto-rows: auto;
-    background: #f23557;
-    color: #f0d43a;
-    justify-content: center;
-    grid-gap: 1em;
-    font-size: 20px;
-    font-family: 'Oswald', sans-serif;
+
+// header styles
+.page-header {
+    width: 100%;
+    padding: 20px 0;
 }
 
-.holder{
+
+.page-header h1{
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 3rem;
     text-align: center;
 }
 
-.entry{
-    background: rgba(59, 74, 107, .4);
-    min-height: 150px;
+
+// main styles
+.content {
+    width: 100%;
+    padding: 40px 0;
+    background: #ffc0cb;
 }
 
 
-/*  Basic Styling To Override Default For Basic HTML Elements */
-label{
-    display:block;
-    font-size: 27px;
+.photo-section {
+    background: url('../media/cherryblossom-min.jpeg');
+    width: 100%;
+    padding: 100% 0 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
-input{
-    display:block;
-    height: 60px;
-    width: 320px;
-    background:#22b2da;
-    color: #f0d43a;
-    font-size: 20px;
-    font-family: 'Oswald', sans-serif;
-    border: none;
-    margin: auto;
+
+.description {
+    width: 80%;
+    margin: 20px auto;
 }
 
-button{
-    width: 400px;
-    height: 100px;
-    background: #3b4a6b;
-    color: #f0d43a;
-    font-size: 26px;
-    font-family: 'Oswald', sans-serif;
-    border: none;
-    box-shadow: 2px 4px 5px #444;
-}
-h1{
-    font-size: 36px;
+
+.trip, .departing {
+    font-family: 'Lora', serif;
+    font-weight: bold;
+    font-size: 1.5rem;
 }
 
-textarea{
-    background:#22b2da;
-    color: #f0d43a;
-    font-size: 20px;
-    font-family: 'Oswald', sans-serif;
+
+.button-area {
+    width: 80%;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
-/* Reset style for HTML element on active to have no border*/
-input:focus,
-select:focus,
-textarea:focus,
-button:focus {
-    outline: none;
+
+
+button {
+    color: #000;
+    padding: 10px 25px;
+    background: transparent;
+    border: 2px solid #000;
+    border-radius: 20px;
+    cursor: pointer;
 }
-/* Style for Placeholder Text*/
-::placeholder { /* Firefox, Chrome, Opera */ 
-    color: #f0d43a; 
-    font-family: 'Oswald', sans-serif;
 
-} 
-  
-:-ms-input-placeholder { /* Internet Explorer 10-11 */ 
-    color: #f0d43a; 
-    font-family: 'Oswald', sans-serif;
 
-} 
-  
-::-ms-input-placeholder { /* Microsoft Edge */ 
-    color: #f0d43a; 
-    font-family: 'Oswald', sans-serif;
+button.save {
+    background: #fff;
+}
 
-} 
+
+button.remove {
+    color: rgba(128, 128, 128, 0.7);
+    border: 2px solid #fff;
+}
+
+
+.response-area {
+    width: 80%;
+    margin: 20px auto;
+    line-height: 1.4;
+}
+
+
+.forward {
+    margin-bottom: 20px;
+}
+
+
+#temperature, #weather {
+    font-size: 0.9rem;
+    color: #444
+}
+
+
+.page-footer {
+    width: 100%;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+a {
+    color: #ffc0cb;
+    text-decoration: none;
+}
+
+
+a:hover {
+    background: #db7093;
+}
+

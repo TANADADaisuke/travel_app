@@ -1,11 +1,49 @@
-/* Global Variables */
-const baseURL = 'http://api.openweathermap.org/data/2.5/weather?units=metric&zip='
-const apiKey = 'your-weather-map-api-key';
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth() + 1 + '.' + d.getDate() + '.' + d.getFullYear();
+let newDate = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
 
+const setDeparture = () => {
+    document.getElementById('departure').setAttribute(
+        'placeholder', newDate
+    );
+}
+
+const formHandler = async (event) => {
+    event.preventDefault();
+
+    // check the input values
+    let destination = document.getElementById('destination').value
+    let departure = document.getElementById('departure').value
+
+    if (destination == '') {
+        alert('Destination is empty! Please fill in the form.');
+    } else if (departure == '') {
+        alert('Departure is empty! Please fill in the form.')
+    } else {
+        console.log('::: Form submitted :::');
+        await fetch('http://localhost:8080/form' , {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                destination: destination,
+                departure: departure
+            })
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log('::: Response :::\n', res);
+        })
+        .catch(error => {
+            console.log('error:', error);
+        })
+    }
+}
+
+export { setDeparture, formHandler }
 
 // GET ROUTE: retrieve project data
 const getProjectData = async (url='') => {
@@ -88,4 +126,4 @@ const updateUI = async () => {
 
 
 // add click event listener on generate button
-document.getElementById('generate').addEventListener('click', performAction);
+// document.getElementById('generate').addEventListener('click', performAction);

@@ -13,6 +13,16 @@
             <h1>Travel Planner</h1>
         </header>
         <main class="content">
+            <section class="form-section">
+                <div class="trip-plan">Your Trip Plan</div>
+                <form id="form">
+                    <label for="destination" class="destination">Destination</label>
+                    <input id="destination" type="text" placeholder="Enter your destination" />
+                    <label for="departure" class="departure">Departure</label>
+                    <input id="departure" type="text" placeholder="" onfocus="(this.type='date')" onblur="(this.type='text')" />
+                    <input id="generate" type="submit" value="Go ahead" />
+                </form>
+            </section>
             <section class="photo-section"></section>
             <section class="content-section">
                 <section class="description">

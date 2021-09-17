@@ -29,6 +29,43 @@ body {
 }
 
 
+.form-section {
+    margin: 0 0 20px 0;
+    padding: 0 20px;
+}
+
+
+.trip-plan {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+
+.form-section #form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+
+.destination, .departure {
+    margin: 10px 0;
+}
+
+
+#destination, #departure {
+    width: 150px;
+    padding: 0.2rem;
+}
+
+
+#generate {
+    margin: 20px 0;
+    width: 150px;
+}
+
+
 .photo-section {
     background: url('../media/cherryblossom-min.jpeg');
     width: 100%;
@@ -45,7 +82,7 @@ body {
 }
 
 
-.trip, .departing {
+.trip, .departing , .destination, .departure {
     font-family: 'Lora', serif;
     font-weight: bold;
     font-size: 1.5rem;

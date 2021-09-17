@@ -8,9 +8,13 @@ module.exports = {
     mode: 'development',
     devtool: 'source-map',
     devServer: {
-        contentBase: './dist',
+        contentBase: path.join(__dirname, './dist'),
         port: 8081,
-        injectClient: false
+        injectClient: false, 
+        historyApiFallback: true,
+        proxy: {
+            '/all': 'http://[::1]:8080',
+        },
     },
     output: {
         filename: 'main.js',

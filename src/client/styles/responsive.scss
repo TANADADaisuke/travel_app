@@ -3,16 +3,20 @@
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: auto;
-    grid-template-areas: "photo" "content";
+    grid-template-areas: "form" "photo" "content";
 }
 
 
+.form-section {
+    grid-area: form;
+}
+
 .photo-section {
-    grid-area: "photo";
+    grid-area: photo;
 }
 
 .content-section {
-    grid-area: "content";
+    grid-area: content;
 }
 
 /* middle screen */
@@ -34,7 +38,9 @@
 
     .content {
         grid-template-columns: 1fr 1fr;
-        grid-template-areas: "photo content";
+        grid-template-areas:
+        "form form"
+        "photo content";
     }
 }
 
@@ -58,7 +64,9 @@
 
     .content {
         grid-template-columns: 1fr 1fr;
-        grid-template-areas: "photo content";
+        grid-template-areas:
+        "form form"
+        "photo content";
         padding: 40px calc((100% - 900px) / 2);
     }
 }

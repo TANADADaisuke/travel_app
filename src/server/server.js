@@ -60,11 +60,41 @@ const addWeather = (req, res) => {
 
 app.post('/addWeather', addWeather);
 
-const getLatitude = (req, res) => {
-    const destination = req.body.destination;
-    const departure = req.body.departure;
-    res.send(JSON.stringify('success'));
+// POST /form
+const geonamesResponse = async (destination) => {
+    try {
+        const geonamesUrl = geonamesBaseUrl + destination + '&username=' + geonamesUsername;
+        const res = await axios.get(geonamesUrl);
+        return res.data;
+    } catch(error) {
+        console.log('error:', error);
+    }
 }
 
+const responseToForm = (req, res) => {
+    const destination = req.body.destination;
+    const departure = req.body.departure;
+    geonamesResponse(destination)
+    .then(data => {
+        const firstEntry = data.postalCodes[0];
+        const coordinate = {
+            'lng': firstEntry.lng,
+            'lat': firstEntry.lat
+        };
+        return coordinate;
+    })
+    .then(coordinate => {
+        let result = coordinate;
+        result.success = true;
+        res.send(JSON.stringify(result));
+    })
+    .catch(error => {
+        console.log('error:', error)
+        const result = {
+            'success': false
+        };
+        res.send(JSON.stringify(result));
+    })
+}
 
-app.post('/form', getLatitude);
+app.post('/form', responseToForm);

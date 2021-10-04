@@ -36,6 +36,7 @@ const formHandler = async (event) => {
         .then(res => res.json())
         .then(res => {
             console.log('::: Response :::\n', res);
+            updateUI(res);
         })
         .catch(error => {
             console.log('error:', error);
@@ -44,6 +45,15 @@ const formHandler = async (event) => {
 }
 
 export { setDeparture, formHandler }
+
+// function for update UI with fetched project data
+const updateUI = (res) => {
+    alert(res);
+    // document.getElementById('temp').innerHTML = '<sapn>Temp:</span> ' + data.temperature + ' &deg;C';
+    // document.getElementById('date').innerHTML = '<span>Date:</span> ' + data.date;
+    // document.getElementById('content').innerHTML = '<span>Your Feeling:</span> ' + data.response;
+}
+
 
 // GET ROUTE: retrieve project data
 const getProjectData = async (url='') => {
@@ -114,15 +124,6 @@ const performAction = (event) => {
     });
 }
 
-// function for update UI with fetched project data
-const updateUI = async () => {
-    getProjectData('/all')
-    .then(data => {
-        document.getElementById('temp').innerHTML = '<sapn>Temp:</span> ' + data.temperature + ' &deg;C';
-        document.getElementById('date').innerHTML = '<span>Date:</span> ' + data.date;
-        document.getElementById('content').innerHTML = '<span>Your Feeling:</span> ' + data.response;
-    });
-}
 
 
 // add click event listener on generate button

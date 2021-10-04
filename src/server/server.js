@@ -79,7 +79,8 @@ const responseToForm = (req, res) => {
         const firstEntry = data.postalCodes[0];
         const coordinate = {
             'lng': firstEntry.lng,
-            'lat': firstEntry.lat
+            'lat': firstEntry.lat,
+            'countryCode': firstEntry.countryCode
         };
         return coordinate;
     })

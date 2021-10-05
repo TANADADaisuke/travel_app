@@ -9,7 +9,8 @@ const FormData = require('form-data');
 dotenv.config();
 
 /* Set geonames API variable */
-const geonamesBaseUrl = 'http://api.geonames.org/postalCodeSearchJSON?maxRows=10&placename='
+const geonamesBaseUrl = 'http://api.geonames.org/postalCodeSearchJSON?maxRows=10&placename=';
+const countryUrl = 'http://api.geonames.org/countryInfoJSON?country=';
 const geonamesUsername = process.env.GEONAMES_ID;
 
 // Setup empty JS object to act as endpoint for all routes
@@ -71,31 +72,50 @@ const geonamesResponse = async (destination) => {
     }
 }
 
+const getCountryName = async (countryCode) => {
+    try {
+        const url = countryUrl + countryCode + '&username=' + geonamesUsername;
+        const res = await axios.get(url);
+        const countryName = res.data.geonames[0].countryName;
+        return countryName;
+    } catch(error) {
+        console.log('error:', error)
+    }
+}
+
 const responseToForm = (req, res) => {
     const destination = req.body.destination;
     const departure = req.body.departure;
     geonamesResponse(destination)
     .then(data => {
         const firstEntry = data.postalCodes[0];
-        const coordinate = {
+        const result = {
             'lng': firstEntry.lng,
             'lat': firstEntry.lat,
             'countryCode': firstEntry.countryCode
         };
-        return coordinate;
+        return result;
     })
-    .then(coordinate => {
-        let result = coordinate;
-        result.success = true;
-        res.send(JSON.stringify(result));
+    .then(data => {
+        getCountryName(data.countryCode)
+        .then(countryName => {
+            data.countryName = countryName;
+            data.success = true;
+            res.send(JSON.stringify(data));    
+        })
+        .catch(error => {
+            console.log('error:', error)
+            res.send(JSON.stringify({
+                'success': false
+            }));
+        })
     })
     .catch(error => {
         console.log('error:', error)
-        const result = {
+        res.send(JSON.stringify({
             'success': false
-        };
-        res.send(JSON.stringify(result));
-    })
+        }));
+    });
 }
 
 app.post('/form', responseToForm);

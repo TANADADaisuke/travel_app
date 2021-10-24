@@ -79,23 +79,12 @@ const geonamesResponse = async (destination) => {
     }
 }
 
-const getCountryName = async (countryCode) => {
-    try {
-        const url = countryUrl + countryCode + '&username=' + geonamesUsername;
-        const res = await axios.get(url);
-        const countryName = res.data.geonames[0].countryName;
-        console.log('country name:', countryName);
-        return countryName;
-    } catch(error) {
-        console.log('error:', error)
-    }
-}
-
 const responseToForm = (req, res) => {
     const destination = req.body.destination;
     const departure = new Date(req.body.departure);
     geonamesResponse(destination)
     .then(data => {
+        // set geocode property
         const firstEntry = data.postalCodes[0];
         const result = {
             'lng': firstEntry.lng,
@@ -104,18 +93,12 @@ const responseToForm = (req, res) => {
         };
         return result;
     })
-    .then(data => {
-        getCountryName(data.countryCode)
-        .then(countryName => {
-            data.countryName = countryName;
-            data.success = true;
-        })
-        .catch(error => {
-            console.log('error:', error)
-            res.send(JSON.stringify({
-                'success': false
-            }));
-        });
+    .then(async data => {
+        // set country name property
+        const url = countryUrl + data.countryCode + '&username=' + geonamesUsername;
+        const res = await axios.get(url);
+        const countryName = res.data.geonames[0].countryName;
+        data.countryName = countryName;
         return data;
     })
     .then(data => {
@@ -123,6 +106,11 @@ const responseToForm = (req, res) => {
         const today = getToday();
         const duration = departure.getTime() - today.getTime();
         data.countdown = duration / 86400000;
+        return data;
+    })
+    .then(data => {
+        // send success data
+        data.success = true;
         res.send(JSON.stringify(data));
     })
     .catch(error => {

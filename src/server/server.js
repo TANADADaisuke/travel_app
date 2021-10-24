@@ -41,6 +41,13 @@ function listening() {
 }
 
 
+// Helper functions
+const getToday = () => {
+    const d = new Date()
+    let today = new Date(d.getFullYear(), d.getMonth(), d.getDate(), - d.getTimezoneOffset() / 60, 0, 0, 0);
+    return today;
+}
+
 // GET Route
 const sendData = (req, res) => {
     res.send(projectData);
@@ -77,6 +84,7 @@ const getCountryName = async (countryCode) => {
         const url = countryUrl + countryCode + '&username=' + geonamesUsername;
         const res = await axios.get(url);
         const countryName = res.data.geonames[0].countryName;
+        console.log('country name:', countryName);
         return countryName;
     } catch(error) {
         console.log('error:', error)
@@ -85,7 +93,7 @@ const getCountryName = async (countryCode) => {
 
 const responseToForm = (req, res) => {
     const destination = req.body.destination;
-    const departure = req.body.departure;
+    const departure = new Date(req.body.departure);
     geonamesResponse(destination)
     .then(data => {
         const firstEntry = data.postalCodes[0];
@@ -101,14 +109,21 @@ const responseToForm = (req, res) => {
         .then(countryName => {
             data.countryName = countryName;
             data.success = true;
-            res.send(JSON.stringify(data));    
         })
         .catch(error => {
             console.log('error:', error)
             res.send(JSON.stringify({
                 'success': false
             }));
-        })
+        });
+        return data;
+    })
+    .then(data => {
+        // set duration property
+        const today = getToday();
+        const duration = departure.getTime() - today.getTime();
+        data.countdown = duration / 86400000;
+        res.send(JSON.stringify(data));
     })
     .catch(error => {
         console.log('error:', error)

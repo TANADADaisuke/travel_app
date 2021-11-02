@@ -13,6 +13,10 @@ const geonamesBaseUrl = 'http://api.geonames.org/postalCodeSearchJSON?maxRows=10
 const countryUrl = 'http://api.geonames.org/countryInfoJSON?country=';
 const geonamesUsername = process.env.GEONAMES_ID;
 
+/* Set Weatherbit API variable */
+const weatherbitBaseUrl = 'http://api.weatherbit.io/v2.0/forecast/daily?key=';
+const weatherbitApiKey = process.env.WEATHERBIT_API_KEY;
+
 // Setup empty JS object to act as endpoint for all routes
 let projectData = {};
 
@@ -73,6 +77,16 @@ const geonamesResponse = async (destination) => {
     try {
         const geonamesUrl = geonamesBaseUrl + destination + '&username=' + geonamesUsername;
         const res = await axios.get(geonamesUrl);
+        return res.data;
+    } catch(error) {
+        console.log('error:', error);
+    }
+}
+
+const weatherbitResponse = async (lat, lon) => {
+    try {
+        const weatherbitUrl = weatherbitBaseUrl + weatherbitApiKey + '&lat=' + lat + '&lon=' + lon;
+        const res = await axios.get(weatherbitUrl);
         return res.data;
     } catch(error) {
         console.log('error:', error);

@@ -101,7 +101,7 @@ const responseToForm = (req, res) => {
         // set geocode property
         const firstEntry = data.postalCodes[0];
         const result = {
-            'lng': firstEntry.lng,
+            'lon': firstEntry.lng,
             'lat': firstEntry.lat,
             'countryCode': firstEntry.countryCode
         };
@@ -120,6 +120,12 @@ const responseToForm = (req, res) => {
         const today = getToday();
         const duration = departure.getTime() - today.getTime();
         data.countdown = duration / 86400000;
+        return data;
+    })
+    .then(async data => {
+        // get weather from weatherbit api
+        const weather = await weatherbitResponse(data.lat, data.lon);
+        data.weather = weather.data;
         return data;
     })
     .then(data => {

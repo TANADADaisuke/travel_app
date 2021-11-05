@@ -35,6 +35,20 @@ body {
 }
 
 
+.content-section {
+    padding: 0 20px;
+    width: 100%;
+}
+
+
+.trip {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px 0;
+    border-top: 2px solid #000;
+}
+
+
 .trip-plan {
     font-size: 2rem;
     font-weight: bold;
@@ -82,7 +96,7 @@ body {
 }
 
 
-.trip, .departing , .destination, .departure {
+.trip-title, .departing , .destination, .departure {
     font-family: 'Lora', serif;
     font-weight: bold;
     font-size: 1.5rem;

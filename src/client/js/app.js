@@ -48,10 +48,115 @@ export { setDeparture, formHandler }
 
 // function for update UI with fetched project data
 const updateUI = (res) => {
-    alert(res);
-    // document.getElementById('temp').innerHTML = '<sapn>Temp:</span> ' + data.temperature + ' &deg;C';
-    // document.getElementById('date').innerHTML = '<span>Date:</span> ' + data.date;
-    // document.getElementById('content').innerHTML = '<span>Your Feeling:</span> ' + data.response;
+    // create new trip element
+    const newTrip = document.createElement('section');
+    newTrip.className = 'trip';
+
+    // append photo section
+    const photoSection = document.createElement('section');
+    photoSection.className = 'photo-section';
+    newTrip.appendChild(photoSection);
+
+    // append trip section
+    const tripSection = document.createElement('section');
+    tripSection.className = 'trip-section';
+    newTrip.appendChild(tripSection);
+
+    // create description area in trip section
+    const description = document.createElement('section');
+    description.className = 'description';
+    // trip title
+    const tripTitle = document.createElement('div');
+    tripTitle.className = 'trip-title';
+    tripTitle.textContent = 'My Travel to ' + res.destination + ', ' + res.countryName;
+    // departing
+    const departing = document.createElement('div');
+    departing.className = 'departing';
+    const departure = res.departure.split('T')[0].split('-');
+    departing.textContent = 'Departing: ' + departure[2] + '/' + departure[1] + '/' + departure[0] + '/';
+    // append elements
+    description.appendChild(tripTitle);
+    description.appendChild(departing);
+    tripSection.appendChild(description);
+
+    // button area
+    const buttonArea = document.createElement('section');
+    buttonArea.className = 'button-area';
+    // save button
+    const saveButton = document.createElement('button');
+    saveButton.className = 'save';
+    saveButton.textContent = 'save trip';
+    // remove button
+    const removeButton = document.createElement('button');
+    removeButton.className = 'remove';
+    removeButton.textContent = 'remove trip';
+    // append elements
+    buttonArea.appendChild(saveButton);
+    buttonArea.appendChild(removeButton);
+    tripSection.appendChild(buttonArea);
+
+    // response area
+    const responseArea = document.createElement('section');
+    responseArea.className = 'response-area';
+    // countdown
+    const countdown = document.createElement('div');
+    countdown.className = 'forward';
+    countdown.innerHTML = res.destination + ', ' + res.countryName + ' is <span id="forward">' + res.countdown + '</span> days away';
+    responseArea.appendChild(countdown);
+    // weather
+    if (res.countdown < 7) {
+        // show weather forecast
+        const weatherTitle = document.createElement('div');
+        weatherTitle.className = 'weather';
+        weatherTitle.textContent = 'Weather forecast:'
+        responseArea.appendChild(weatherTitle);
+        // forecast entry
+        for (let i =0; i < 7; i++) {
+            // weather entry
+            const forecast = document.createElement('section');
+            forecast.className = 'forecast';
+            // set date
+            const validDate = document.createElement('div');
+            validDate.className = 'valid-date';
+            validDate.textContent = res.weather[i].valid_date;
+            // set temperature
+            const temperature = document.createElement('div');
+            temperature.className = 'temperature';
+            temperature.innerHTML = '<span>High - ' + res.weather[i].high_temp + '&#8451;, Low - ' + res.weather[i].min_temp + '&#8451;</span>';
+            // set weather
+            const weather = document.createElement('div');
+            weather.className = 'weather';
+            weather.textContent = res.weather[i].weather.description;
+            // append elements
+            forecast.appendChild(validDate);
+            forecast.appendChild(temperature);
+            forecast.appendChild(weather);
+            // show weather forecast
+            responseArea.appendChild(forecast);
+        }
+    } else {
+        // show typical weather
+        const typical = document.createElement('div');
+        typical.className = 'weather';
+        typical.textContent = 'Typical weather:';
+        // temperature
+        const temperature = document.createElement('div');
+        temperature.className = 'temperature';
+        temperature.innerHTML = '<span>High - ' + res.weather[0].high_temp + '&#8451;, Low - ' + res.weather[0].min_temp + '&#8451;</span>';
+        // weather
+        const weather = document.createElement('div');
+        weather.className = 'weather';
+        weather.textContent = res.weather[0].weather.discription;
+        // append elements
+        responseArea.appendChild(typical);
+        responseArea.appendChild(temperature);
+        responseArea.appendChild(weather);
+    }
+    // append response area into trip section
+    tripSection.appendChild(responseArea);
+
+    // append new trip element
+    document.querySelector('#trip-plan').appendChild(newTrip);
 }
 
 

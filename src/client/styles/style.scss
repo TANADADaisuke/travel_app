@@ -151,6 +151,12 @@ button.remove {
 }
 
 
+.forecast .temperature, .forecast .weather, .forecast .valid-date {
+    font-size: 0.9rem;
+    color: #444;
+}
+
+
 .page-footer {
     width: 100%;
     min-height: 50px;

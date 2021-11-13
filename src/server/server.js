@@ -101,6 +101,8 @@ const responseToForm = (req, res) => {
         // set geocode property
         const firstEntry = data.postalCodes[0];
         const result = {
+            'destination': destination,
+            'departure': departure,
             'lon': firstEntry.lng,
             'lat': firstEntry.lat,
             'countryCode': firstEntry.countryCode

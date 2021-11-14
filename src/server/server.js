@@ -4,6 +4,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const axios = require('axios').default;
 const FormData = require('form-data');
+const { resolveSoa } = require('dns');
 
 /* Construct dotEnv */
 dotenv.config();
@@ -16,6 +17,10 @@ const geonamesUsername = process.env.GEONAMES_ID;
 /* Set Weatherbit API variable */
 const weatherbitBaseUrl = 'http://api.weatherbit.io/v2.0/forecast/daily?key=';
 const weatherbitApiKey = process.env.WEATHERBIT_API_KEY;
+
+/* Set pixabay API variable */
+const pixabayBaseUrl = 'https://pixabay.com/api/?key=';
+const pixabayApiKey = process.env.PIXABAY_KEY;
 
 // Setup empty JS object to act as endpoint for all routes
 let projectData = {};
@@ -93,6 +98,22 @@ const weatherbitResponse = async (lat, lon) => {
     }
 }
 
+const pixabayResponse = async (city, country) => {
+    try {
+        const pixabayUrl = pixabayBaseUrl + pixabayApiKey + '&q=' + city + '+' + country + '&image_type=photo';
+        const res = await axios.get(pixabayUrl);
+        // extract first photo url
+        if (res.data.total === 0) {
+            return 'no image';
+        } else {
+            const firstHit = res.data.hits[0];
+            return firstHit.webformatURL;
+        }
+    } catch(error) {
+        console.log('error:', error);
+    }
+}
+
 const responseToForm = (req, res) => {
     const destination = req.body.destination;
     const departure = new Date(req.body.departure);
@@ -128,6 +149,12 @@ const responseToForm = (req, res) => {
         // get weather from weatherbit api
         const weather = await weatherbitResponse(data.lat, data.lon);
         data.weather = weather.data;
+        return data;
+    })
+    .then(async data => {
+        // get photo url from pixabay api
+        const photoUrl = await pixabayResponse(data.destination, data.countryName);
+        data.photourl = photoUrl;
         return data;
     })
     .then(data => {

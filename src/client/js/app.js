@@ -55,6 +55,11 @@ const updateUI = (res) => {
     // append photo section
     const photoSection = document.createElement('section');
     photoSection.className = 'photo-section';
+    // set background style
+    photoSection.style.background = `url(${res.photourl})`;
+    photoSection.style.backgroundSize = 'cover';
+    photoSection.style.backgroundRepeat = 'no-repeat';
+    photoSection.style.backgroundPosition = 'center';
     newTrip.appendChild(photoSection);
 
     // append trip section

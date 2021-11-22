@@ -117,7 +117,7 @@ const pixabayResponse = async (city, country) => {
 const responseToForm = (req, res) => {
     const destination = req.body.destination;
     const departure = new Date(req.body.departure);
-    geonamesResponse(destination)
+    geonamesResponse(encodeURIComponent(destination))
     .then(data => {
         // set geocode property
         const firstEntry = data.postalCodes[0];

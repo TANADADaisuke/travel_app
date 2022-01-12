@@ -78,6 +78,7 @@ const addWeather = (req, res) => {
 app.post('/addWeather', addWeather);
 
 // POST /form
+// get geocode from geonames api
 const geonamesResponse = async (destination) => {
     try {
         const geonamesUrl = geonamesBaseUrl + destination + '&username=' + geonamesUsername;
@@ -88,6 +89,7 @@ const geonamesResponse = async (destination) => {
     }
 }
 
+// get weather from weatherbit api
 const weatherbitResponse = async (lat, lon) => {
     try {
         const weatherbitUrl = weatherbitBaseUrl + weatherbitApiKey + '&lat=' + lat + '&lon=' + lon;
@@ -98,9 +100,27 @@ const weatherbitResponse = async (lat, lon) => {
     }
 }
 
+// get photo image url from pixabay api
 const pixabayResponse = async (city, country) => {
     try {
         const pixabayUrl = pixabayBaseUrl + pixabayApiKey + '&q=' + city + '+' + country + '&image_type=photo';
+        const res = await axios.get(pixabayUrl);
+        // extract first photo url
+        if (res.data.total === 0) {
+            return pixabayResponseCountry(country);
+        } else {
+            const firstHit = res.data.hits[0];
+            return firstHit.webformatURL;
+        }
+    } catch(error) {
+        console.log('error:', error);
+    }
+}
+
+// get country photo image url from pixabay in case with no city image
+const pixabayResponseCountry = async (country) => {
+    try {
+        const pixabayUrl = pixabayBaseUrl + pixabayApiKey + '&q=' + country + '&image_type=photo';
         const res = await axios.get(pixabayUrl);
         // extract first photo url
         if (res.data.total === 0) {
@@ -114,6 +134,7 @@ const pixabayResponse = async (city, country) => {
     }
 }
 
+// main function for response to form submission
 const responseToForm = (req, res) => {
     const destination = req.body.destination;
     const departure = new Date(req.body.departure);

@@ -95,8 +95,9 @@ const updateUI = (res) => {
     const removeButton = document.createElement('button');
     removeButton.className = 'remove';
     removeButton.textContent = 'remove trip';
+    removeButton.setAttribute('data-id', res.id);
     // add event listener
-    removeButton.addEventListener('click', removeTrip);
+    removeButton.addEventListener('click', removeAction);
     // append elements
     buttonArea.appendChild(saveButton);
     buttonArea.appendChild(removeButton);
@@ -167,9 +168,42 @@ const updateUI = (res) => {
 }
 
 // remove button callback function
-const removeTrip = (event) => {
+const removeAction = (event) => {
     // remove trip entry
-    event.target.parentElement.parentElement.parentElement.remove();
+    const tripId = event.target.getAttribute('data-id');
+    const data = {
+        'action': 'remove',
+        'dataId': tripId
+    }
+    removeTrip(tripId, data);
+}
+
+const removeTrip = async (tripId, data, url='http://localhost:8080/remove') => {
+    console.log('::: Remove action: trip' + tripId + ' :::');
+    const res = await fetch(url,  {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(res => {
+        console.log(res);
+        if (res.success === true) {
+            // remove trip entry
+            const trips = document.getElementsByClassName('trip');
+            for (let i = 0; i < trips.length; i++) {
+                if (trips[i].getAttribute('data-id') === tripId) {
+                    trips[i].remove();
+                }
+            }
+        }    
+    })
+    .catch(error => {
+        console.log('error:', error);
+    })
 }
 
 export { setDeparture, formHandler }

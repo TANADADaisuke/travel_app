@@ -190,3 +190,21 @@ const responseToForm = (req, res) => {
 }
 
 app.post('/form', responseToForm);
+
+// POST /remove
+const responseToRemove = (req, res) => {
+    const dataId = req.body.dataId;
+    // remove trip from projectData
+    for (let i = 0; i < projectData.trip.length; i++) {
+        if (projectData.trip[i].id === dataId) {
+            projectData.trip.splice(i, 1);
+        }
+    }
+    res.send(JSON.stringify({
+        'success': true,
+        'removed': dataId
+    }));
+}
+
+
+app.post('/remove', responseToRemove);

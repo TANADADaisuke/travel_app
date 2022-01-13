@@ -50,6 +50,7 @@ const updateUI = (res) => {
     // create new trip element
     const newTrip = document.createElement('section');
     newTrip.className = 'trip';
+    newTrip.setAttribute('data-id', res.id);
 
     // append photo section
     const photoSection = document.createElement('section');

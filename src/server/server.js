@@ -24,6 +24,9 @@ const pixabayApiKey = process.env.PIXABAY_KEY;
 
 // Setup empty JS object to act as endpoint for all routes
 let projectData = {};
+// prepare trip list and id
+projectData['trip'] = [];
+projectData['id'] = 0;
 
 /* Create and app instance */
 const app = express();
@@ -65,17 +68,6 @@ const sendData = (req, res) => {
 
 app.get('/all', sendData);
 
-
-// POST Route
-const addWeather = (req, res) => {
-    projectData['temperature'] = req.body.temperature;
-    projectData['date'] = req.body.date;
-    projectData['response'] = req.body.response
-    res.send(projectData);
-    console.log('/addWeather: success', projectData);
-} 
-
-app.post('/addWeather', addWeather);
 
 // POST /form
 // get geocode from geonames api
@@ -179,6 +171,12 @@ const responseToForm = (req, res) => {
         return data;
     })
     .then(data => {
+        // add data id
+        data.id = projectData.id + 1;
+        // update projecdtData id
+        projectData.id += 1;
+        // save trip in projectData
+        projectData.trip.push(data);
         // send success data
         data.success = true;
         res.send(JSON.stringify(data));

@@ -20,6 +20,24 @@
 }
 
 
+.form-section {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto;
+    grid-template-areas: "title" "photo" "form";
+}
+
+
+.trip-plan {
+    grid-area: title;
+}
+
+
+#form {
+    grid-area: form;
+}
+
+
 .trip {
     display: grid;
     grid-template-columns: 100%;
@@ -61,6 +79,15 @@
         grid-template-areas:
         "photo trip";
     }
+
+
+    .form-section {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+        "title title"
+        "form photo";
+    }
+
 }
 
 
@@ -86,6 +113,14 @@
         grid-template-columns: 1fr 1fr;
         grid-template-areas:
         "photo trip";
+    }
+
+
+    .form-section {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+        "title title"
+        "form photo";
     }
 
 

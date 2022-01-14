@@ -99,10 +99,6 @@ const updateUI = (res) => {
     // button area
     const buttonArea = document.createElement('section');
     buttonArea.className = 'button-area';
-    // save button
-    const saveButton = document.createElement('button');
-    saveButton.className = 'save';
-    saveButton.textContent = 'save trip';
     // remove button
     const removeButton = document.createElement('button');
     removeButton.className = 'remove';
@@ -111,7 +107,6 @@ const updateUI = (res) => {
     // add event listener
     removeButton.addEventListener('click', removeAction);
     // append elements
-    buttonArea.appendChild(saveButton);
     buttonArea.appendChild(removeButton);
     tripSection.appendChild(buttonArea);
 

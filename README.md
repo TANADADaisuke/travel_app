@@ -33,7 +33,7 @@ Once you clone or download this repository, follow the instruction bellow.
 
   In your project folder, install all depencendies:
   ```
-  npm -i
+  npm install
   ```
 
 2. run dev-server

@@ -1,4 +1,3 @@
-
 // Create a new date instance dynamically with JS
 let d = new Date();
 let newDate = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
@@ -7,6 +6,19 @@ const setDeparture = () => {
     document.getElementById('departure').setAttribute(
         'placeholder', newDate
     );
+}
+
+// get all trips from server
+const getTrips = async (url='http://localhost:8080/trip') => {
+    const res = await fetch(url);
+    try {
+        const data = await res.json();
+        for (let i = 0; i < data.trip.length; i++) {
+            updateUI(data.trip[i]);
+        }
+    } catch(error) {
+        console.log('error:', error);
+    }
 }
 
 // submit button callback function
@@ -206,4 +218,4 @@ const removeTrip = async (tripId, data, url='http://localhost:8080/remove') => {
     })
 }
 
-export { setDeparture, formHandler }
+export { setDeparture, getTrips, formHandler }

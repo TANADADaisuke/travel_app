@@ -60,13 +60,13 @@ const getToday = () => {
     return today;
 }
 
-// GET Route
+// GET /trip
 const sendData = (req, res) => {
     res.send(projectData);
-    console.log('/all: success', projectData);
+    console.log('/trip: success', projectData);
 }
 
-app.get('/all', sendData);
+app.get('/trip', sendData);
 
 
 // POST /form
@@ -196,7 +196,7 @@ const responseToRemove = (req, res) => {
     const dataId = req.body.dataId;
     // remove trip from projectData
     for (let i = 0; i < projectData.trip.length; i++) {
-        if (projectData.trip[i].id === dataId) {
+        if (projectData.trip[i].id === parseInt(dataId)) {
             projectData.trip.splice(i, 1);
         }
     }
